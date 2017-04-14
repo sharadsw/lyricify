@@ -1,6 +1,6 @@
 import gi
 gi.require_version('Playerctl', '1.0')
-from gi.repository import Playerctl, GLib, GObject
+from gi.repository import Playerctl, GLib 
 
 import lyrics, view
 
@@ -10,6 +10,7 @@ first_play = False
 current_song = ""
 
 def on_play(player):
+    # Return if a song wasn't changed but only paused and resumed
     if(current_song == player.get_title()):
         return
 
@@ -21,7 +22,7 @@ def on_play(player):
     lyrics.get_album_image(song_url)
 
     print(song_lyrics)
-    view.win.set_data(artist, song, song_lyrics)
+    view.win.update_view(artist, song, song_lyrics)
 
 def on_pause(player):
     current_song = player.get_title()

@@ -1,16 +1,12 @@
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GdkPixbuf, GLib
+from gi.repository import Gtk, GdkPixbuf 
 
 import os
 
 class LyricifyUI(Gtk.Window):
 
     def __init__(self):
-        self.lyrics = ""
-        self.artist = ""
-        self.song = ""
-
         Gtk.Window.__init__(self, title="Lyricify")
         self.set_default_size(300, 500)
 
@@ -19,7 +15,6 @@ class LyricifyUI(Gtk.Window):
 
         hbox = Gtk.Box(spacing=2)
 
-        # Add blank.jpg initally
         pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
             filename="img/album.jpg",
             width=100,
@@ -46,9 +41,7 @@ class LyricifyUI(Gtk.Window):
 
         self.add(vbox)
 
-        GLib.timeout_add_seconds(2, self.update_view)
-
-    def update_view(self):
+    def update_view(self, artist, song, lyrics):
         pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
             filename="img/album.jpg",
             width=100,
@@ -56,16 +49,11 @@ class LyricifyUI(Gtk.Window):
             preserve_aspect_ratio=True)
 
         self.album_image.set_from_pixbuf(pixbuf)
-        self.lyrics_label.set_label(self.lyrics)
-        self.artist_label.set_label(self.artist)
-        self.song_label.set_label(self.song)
+        self.lyrics_label.set_label(lyrics)
+        self.artist_label.set_label(artist)
+        self.song_label.set_label(song)
 
-        return True
-
-    def set_data(self, artist, song, lyrics):
-        self.artist = artist
-        self.song = song
-        self.lyrics = lyrics
+        self.show_all()
 
 def main():
     win.connect("delete-event", Gtk.main_quit)
