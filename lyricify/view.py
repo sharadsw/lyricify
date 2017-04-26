@@ -1,7 +1,8 @@
+import os
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GdkPixbuf, Pango
-import os
+from gi.repository import Gtk, GdkPixbuf
+
 
 class LyricifyUI(Gtk.Window):
 
@@ -58,5 +59,3 @@ class LyricifyUI(Gtk.Window):
         self.music_label.set_markup("<big>"+song+"</big>\n<b>"+artist+"</b>")
 
         self.show_all()
-
-win = LyricifyUI()
