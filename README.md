@@ -29,4 +29,5 @@ GUI
 lyricify -ui
 ```
 This will open a GTK window that displays the lyrics.
+
 ![screenshot](https://i.cubeupload.com/3Knx86.jpg)
