@@ -1,19 +1,24 @@
 import sys
-
+import argparse
 import dbus
 from dbus.mainloop.glib import DBusGMainLoop
 from gi.repository import GLib
 
-import lyrics
-from view import LyricifyUI
+from lyricify import lyrics
+from lyricify.view import LyricifyUI
 
 
 class SpotifyCtl():
 
-    def __init__(self):
+    def __init__(self, ui=None):
         self.connect_to_spotify()
         self.set_properties()
-        self.win = LyricifyUI()
+        self.ui = ui
+
+        if self.ui:
+            self.win = LyricifyUI()
+            self.win.connect('delete-event', self.on_exit)
+
         self.lyricify()
 
         GLib.MainLoop().run()
@@ -26,7 +31,7 @@ class SpotifyCtl():
                 "/org/mpris/MediaPlayer2")
             self.spotify_bus.connect_to_signal("PropertiesChanged",
                                                self.on_change)
-        except Exception as e:
+        except:
             print("\nCould not connect to Spotify, exiting...")
             sys.exit()
 
@@ -50,16 +55,37 @@ class SpotifyCtl():
 
         self.lyricify()
 
+    def on_exit(self, window, event):
+        self.win.hide_on_delete()
+        self.ui = False
+
+        return True
+
     def lyricify(self):
         song_url = lyrics.create_song_url(self.artist, self.song)
-        song_lyrics = lyrics.get_lyrics(song_url)
-        lyrics.get_album_image(song_url)
+        try:
+            song_lyrics = lyrics.get_lyrics(song_url)
+            if self.ui:
+                lyrics.get_album_image(song_url)
+        except:
+            print("\nUnable to find lyrics for the song...")
+            return
 
-        self.win.update_view(self.artist, self.song, song_lyrics)
+        if self.ui:
+            self.win.update_view(self.artist, self.song, song_lyrics)
+        else:
+            print("\n================================================")
+            print("{} - {}".format(self.artist, self.song))
+            print("\n{}".format(song_lyrics))
 
 
 def main():
-    SpotifyCtl()
+    parser = argparse.ArgumentParser(description='Get lyrics for Spotify song')
+    parser.add_argument('-ui', action='store_true',
+                        help='Open a GUI for lyrics')
+    args = parser.parse_args()
+
+    SpotifyCtl(ui=args.ui)
 
 if __name__ == "__main__":
     main()
