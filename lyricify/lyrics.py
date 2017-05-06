@@ -33,7 +33,7 @@ def get_album_image(song_url):
 
     # Download album art to /img/album.jpg
     response = requests.get(image_src)
-    image_file = open(os.getcwd() + "/img/album.jpg", 'wb')
+    image_file = open("lyricify/img/album.jpg", "wb+")
     for chunk in response.iter_content(100000):
         image_file.write(chunk)
     image_file.close()

@@ -67,8 +67,8 @@ class SpotifyCtl():
             song_lyrics = lyrics.get_lyrics(song_url)
             if self.ui:
                 lyrics.get_album_image(song_url)
-        except:
-            print("\nUnable to find lyrics for the song...")
+        except Exception as e:
+            print("\nUnable to find lyrics/album art for the song, sorry!")
             return
 
         if self.ui:
@@ -85,7 +85,11 @@ def main():
                         help='Open a GUI for lyrics')
     args = parser.parse_args()
 
-    SpotifyCtl(ui=args.ui)
+    try:
+        SpotifyCtl(ui=args.ui)
+    except KeyboardInterrupt:
+        print("\nExiting lyrcify")
+        sys.exit()
 
 if __name__ == "__main__":
-    main()
+        main()

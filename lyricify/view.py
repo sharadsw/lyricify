@@ -49,7 +49,7 @@ class LyricifyUI(Gtk.Window):
 
     def update_view(self, artist, song, lyrics):
         pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
-            filename="img/album.jpg",
+            filename="lyricify/img/album.jpg",
             width=160,
             height=160,
             preserve_aspect_ratio=True)
