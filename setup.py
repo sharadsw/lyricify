@@ -7,7 +7,7 @@ _name_ = "lyricify"
 
 setup(
     name=_name_,
-    version="1.1",
+    version="1.2",
     description="Spotify lyrics for Linux",
     long_description=_description_,
     url="https://github.com/TheRealSS/lyricify",

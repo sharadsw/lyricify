@@ -6,7 +6,7 @@ Lyricify is a CLI/GUI application that retrieves the lyrics of the current Spoti
 * Python3
 * GTK+ 3
 * PyGObject
-* Requests module
+* Requests
 * Beautiful Soup
 
 ### Installation

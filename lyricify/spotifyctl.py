@@ -1,6 +1,7 @@
 import sys
 import argparse
 import dbus
+from subprocess import call
 from dbus.mainloop.glib import DBusGMainLoop
 from gi.repository import GLib
 
@@ -74,9 +75,8 @@ class SpotifyCtl():
         if self.ui:
             self.win.update_view(self.artist, self.song, song_lyrics)
         else:
-            print("\n================================================")
-            print("{} - {}".format(self.artist, self.song))
-            print("\n{}".format(song_lyrics))
+            call("clear")
+            print("{} - {}\n\n{}".format(self.artist, self.song, song_lyrics))
 
 
 def main():
@@ -88,7 +88,6 @@ def main():
     try:
         SpotifyCtl(ui=args.ui)
     except KeyboardInterrupt:
-        print("\nExiting lyrcify")
         sys.exit()
 
 if __name__ == "__main__":
