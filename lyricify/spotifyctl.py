@@ -68,9 +68,8 @@ class SpotifyCtl():
             song_lyrics = lyrics.get_lyrics(song_url)
             if self.ui:
                 lyrics.get_album_image(song_url)
-        except Exception as e:
-            print(e)
-            print("\nUnable to find lyrics/album art for the song, sorry!")
+        except Exception:
+            print("\nCannot find lyrics/album art for the song, sorry!")
             return
 
         if self.ui:
