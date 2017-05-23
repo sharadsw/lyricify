@@ -1,1 +1,0 @@
-# The application will download the album art into album.jpg in this folder

@@ -1,3 +1,4 @@
+import os
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf
@@ -47,8 +48,11 @@ class LyricifyUI(Gtk.Window):
         self.add(vbox)
 
     def update_view(self, artist, song, lyrics):
+        home_dir = os.getenv("HOME")
+        img_path = os.path.join(home_dir, ".lyricify/album.jpg")
+
         pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
-            filename="lyricify/img/album.jpg",
+            filename=img_path,
             width=160,
             height=160,
             preserve_aspect_ratio=True)

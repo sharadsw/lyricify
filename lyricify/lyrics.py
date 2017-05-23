@@ -32,8 +32,15 @@ def get_album_image(song_url):
     image_src = album_image[0].get('src')
 
     # Download album art to /img/album.jpg
+    home_dir = os.getenv("HOME")
+    img_dir = os.path.join(home_dir, ".lyricify/")
+
+    if not os.path.exists(img_dir):
+        os.makedirs(img_dir)
+
+    img_path = os.path.join(img_dir, "album.jpg")
     response = requests.get(image_src)
-    image_file = open("lyricify/img/album.jpg", "wb+")
+    image_file = open(img_path, "w+b")
     for chunk in response.iter_content(100000):
         image_file.write(chunk)
     image_file.close()
