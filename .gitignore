@@ -1,7 +1,7 @@
 # Python gitignore
 
-# Ignore the album art
-lyricify/img/album.jpg
+lyricify/cli.py
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

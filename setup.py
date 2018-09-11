@@ -7,7 +7,7 @@ _name_ = "lyricify"
 
 setup(
     name=_name_,
-    version="1.3",
+    version="2.0",
     description="Spotify lyrics for Linux",
     long_description=_description_,
     url="https://github.com/TheRealSS/lyricify",
@@ -20,7 +20,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "{0} = {0}.spotifyctl:main".format(_name_)
+            "{0} = {0}.controller:main".format(_name_)
         ],
     }
 )

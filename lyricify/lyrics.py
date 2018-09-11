@@ -8,7 +8,7 @@ URL = "https://genius.com/"
 
 def create_song_url(artist, song):
     # Remove special characters and multiple spaces
-    table = str.maketrans('', '', string.punctuation)
+    table = str.maketrans("", "", string.punctuation)
     song = song.translate(table).replace("  ", " ")
 
     artist = artist.split(" ")
@@ -31,9 +31,9 @@ def get_album_image(song_url):
     album_image = soup.select('.cover_art-image')
     image_src = album_image[0].get('src')
 
-    # Download album art to /img/album.jpg
+    # Download album art to ~/.cache/lyricify/album.jpg
     home_dir = os.getenv("HOME")
-    img_dir = os.path.join(home_dir, ".lyricify/")
+    img_dir = os.path.join(home_dir, ".cache/lyricify/")
 
     if not os.path.exists(img_dir):
         os.makedirs(img_dir)
