@@ -21,12 +21,10 @@ Command-line
 ```
 lyricify
 ```
-This will print lyrics of the current song to the terminal.
 
 GUI
 ```
 lyricify -ui
 ```
-This will open a GTK window that displays the lyrics.
 
 ![screenshot](http://i.cubeupload.com/mNew80.png)
