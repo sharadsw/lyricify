@@ -7,7 +7,6 @@ from gi.repository import GLib
 
 from lyricify import lyrics
 from lyricify.gui import LyricifyUI
-from lyricify import cli
 
 
 class SpotifyDBus():
@@ -32,7 +31,7 @@ class SpotifyDBus():
                 "/org/mpris/MediaPlayer2")
             self.spotify_bus.connect_to_signal("PropertiesChanged",
                                                self.on_change)
-        except:
+        except Exception:
             print("Could not connect to Spotify, exiting...")
             sys.exit()
 
@@ -93,4 +92,4 @@ def main():
 
 
 if __name__ == "__main__":
-        main()
+    main()
