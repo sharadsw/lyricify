@@ -10,7 +10,7 @@ setup(
     version="2.0",
     description="Spotify lyrics for Linux",
     long_description=_description_,
-    url="https://github.com/TheRealSS/lyricify",
+    url="https://github.com/sharadsw/lyricify",
     author="Sharad Swaminathan",
     author_email="swaminathan.sharad@gmail.com",
     packages=find_packages(),

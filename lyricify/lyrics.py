@@ -4,6 +4,8 @@ import requests
 import bs4
 
 URL = "https://genius.com/"
+LYRICS_SELECTOR = 'div[class*="Lyrics__Container"]'
+ART_SELECTOR = 'img[class*="SizedImage__Image"]'
 
 
 def create_song_url(artist, song):
@@ -21,16 +23,16 @@ def create_song_url(artist, song):
 
 def get_lyrics(song_url):
     soup = make_soup(song_url)
-    lyrics = soup.select('p')
+    lyrics = soup.select(LYRICS_SELECTOR)
+    lyrics_text = ""
+    for div in lyrics:
+        lyrics_text += div.getText(separator="\n")
+        lyrics_text += "\n"
 
-    return lyrics[0].getText()
+    return lyrics_text
 
 
-def get_album_image(song_url):
-    soup = make_soup(song_url)
-    album_image = soup.select('.cover_art-image')
-    image_src = album_image[0].get('src')
-
+def get_album_image(image_src):
     # Download album art to ~/.cache/lyricify/album.jpg
     home_dir = os.getenv("HOME")
     img_dir = os.path.join(home_dir, ".cache/lyricify/")

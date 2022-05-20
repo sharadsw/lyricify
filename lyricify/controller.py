@@ -5,7 +5,7 @@ from subprocess import call
 from dbus.mainloop.glib import DBusGMainLoop
 from gi.repository import GLib
 
-from lyricify import lyrics
+from lyricify.lyrics import create_song_url, get_album_image, get_lyrics
 from lyricify.gui import LyricifyUI
 
 
@@ -35,15 +35,21 @@ class SpotifyDBus():
             print("Could not connect to Spotify, exiting...")
             sys.exit()
 
+
+    def set_metadata(self, metadata):
+        self.song = metadata['xesam:title']
+        self.artist = metadata['xesam:artist'][0]
+        self.albumArt = metadata["mpris:artUrl"]
+
+
     # Set properties of the initial song
     def set_properties(self):
         metadata = self.spotify_bus.Get(
             "org.mpris.MediaPlayer2.Player",
             "Metadata",
             dbus_interface="org.freedesktop.DBus.Properties")
-
-        self.song = metadata['xesam:title']
-        self.artist = metadata['xesam:artist'][0]
+        
+        self.set_metadata(metadata)
 
     # Function for the event that a property has changed its value
     def on_change(self, interface, changed_properties, invalidated_properties):
@@ -52,8 +58,7 @@ class SpotifyDBus():
            self.artist == metadata['xesam:artist'][0]):
             return
 
-        self.song = metadata['xesam:title']
-        self.artist = metadata['xesam:artist'][0]
+        self.set_metadata(metadata)
         self.lyricify()
 
     # Function to handle the closing of the GTK window
@@ -63,11 +68,11 @@ class SpotifyDBus():
         return True
 
     def lyricify(self):
-        song_url = lyrics.create_song_url(self.artist, self.song)
+        song_url = create_song_url(self.artist, self.song)
         try:
-            song_lyrics = lyrics.get_lyrics(song_url)
+            song_lyrics = get_lyrics(song_url)
             if self.ui:
-                lyrics.get_album_image(song_url)
+                get_album_image(self.albumArt)
         except Exception:
             print("Cannot find lyrics/album art for the song, sorry!")
             sys.exit()
