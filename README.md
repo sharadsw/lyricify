@@ -1,22 +1,20 @@
 # lyricify
-Lyricify is a CLI/GUI application that retrieves the lyrics of the current Spotify song for Linux. It uses dbus to retrieve the current song and scrapes [genius.com](https://www.genius.com) for the lyrics.
+Lyricify is a CLI/GUI application that retrieves the lyrics of the current Spotify song for Linux. It uses dbus to detect the current song and scrapes [genius.com](https://www.genius.com) for the lyrics.
 
-### Dependencies
-* Spotify
-* Python3
+## Dependencies
+* requests
+* BeautifulSoup
 * GTK+ 3
 * PyGObject
-* Requests
-* Beautiful Soup
 
-### Installation
+## Install
 Make sure all dependencies are installed.
 ```
-git clone https://github.com/TheRealSS/lyricify
+git clone https://github.com/sharadsw/lyricify
 cd lyricify
-python setup.py install
+python setup.py install --user
 ```
-### Usage
+## Usage
 Command-line
 ```
 lyricify
@@ -26,5 +24,4 @@ GUI
 ```
 lyricify -ui
 ```
-
-![screenshot](http://i.cubeupload.com/mNew80.png)
+![Screenshot](https://user-images.githubusercontent.com/16229739/169935460-c9bd042c-d2e8-477f-a0fb-6ad9034b7dc4.png)
